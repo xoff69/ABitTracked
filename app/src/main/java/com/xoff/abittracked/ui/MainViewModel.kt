@@ -23,7 +23,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     data class ViewState(
         val appCounter: Int = 0,
         val lastStartup: String = ""
-    )
+    ){
+        var tasks =  listOf("a","ab","cccccccc")
+    }
 
     private val _viewState = MutableStateFlow(ViewState())
     val viewState = _viewState.asStateFlow()

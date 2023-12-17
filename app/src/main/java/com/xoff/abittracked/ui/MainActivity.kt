@@ -45,6 +45,7 @@ private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
     SampleContent(
         appStartupCounter = viewState.appCounter,
         lastAppOpeningTimestamp = viewState.lastStartup,
+        ltasks=viewState.tasks,
         resetData = viewModel::resetData
     )
 }
@@ -53,6 +54,7 @@ private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
 private fun SampleContent(
     appStartupCounter: Int,
     lastAppOpeningTimestamp: String,
+    ltasks:List<String>,
     resetData: () -> Unit
 ) {
 
@@ -74,7 +76,7 @@ private fun SampleContent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column() {
-                    Text(text = "Counter:", fontWeight = FontWeight.Bold)
+                    Text(text = "coucou:", fontWeight = FontWeight.Bold)
                     Text(text = "Last opening:", fontWeight = FontWeight.Bold)
                 }
 
@@ -87,7 +89,10 @@ private fun SampleContent(
             }
 
             MediumSpacer()
-
+            Column() {
+                Text(text = "tasks:", fontWeight = FontWeight.Bold)
+                Text(text = ltasks.size.toString())
+            }
             Button(onClick = resetData) {
                 Text(text = "Reset data")
             }
@@ -105,6 +110,7 @@ fun DefaultPreview() {
         SampleContent(
             appStartupCounter = 0,
             lastAppOpeningTimestamp = "",
+            listOf("a","ab"),
             resetData = {}
         )
     }
