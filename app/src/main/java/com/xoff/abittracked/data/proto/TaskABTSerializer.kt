@@ -6,28 +6,28 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import com.google.protobuf.InvalidProtocolBufferException
-import com.xoff.abittracked.proto.Task
+import com.xoff.abittracked.proto.TaskABT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.io.OutputStream
 
-object TaskSerializer : Serializer<Task> {
+object TaskABTSerializer : Serializer<TaskABT> {
 
-    override val defaultValue: Task = Task.getDefaultInstance()
+    override val defaultValue: TaskABT = TaskABT.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): Task = withContext(Dispatchers.IO) {
+    override suspend fun readFrom(input: InputStream): TaskABT = withContext(Dispatchers.IO) {
         try {
-            return@withContext Task.parseFrom(input)
+            return@withContext TaskABT.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto.", exception)
         }
     }
 
-    override suspend fun writeTo(t: Task, output: OutputStream) = withContext(Dispatchers.IO) { t.writeTo(output) }
+    override suspend fun writeTo(t: TaskABT, output: OutputStream) = withContext(Dispatchers.IO) { t.writeTo(output) }
 }
 
-val Context.taskDataStore: DataStore<Task> by dataStore(
-    fileName = "task.pb",
-    serializer = TaskSerializer
+val Context.taskDataStore: DataStore<TaskABT> by dataStore(
+    fileName = "taskABT.pb",
+    serializer = TaskABTSerializer
 )

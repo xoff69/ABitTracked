@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+<uses-permission android:name="android.permission.SET_ALARM"></uses-permission>
 
     <application
-        android:name="com.xoff.abittracked.ProtoDataStoreApplication"
+        android:name="com.xoff.abittracked.ABitTracked"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,13 +12,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DatatStoreWithKotlinSupport"
-        tools:targetApi="31">
+        android:theme="@style/Theme.ABitTracked"
+        >
         <activity
             android:name="com.xoff.abittracked.ui.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.DatatStoreWithKotlinSupport">
+            android:screenOrientation="landscape"
+            android:label="A bit tracked"
+            android:theme="@style/Theme.ABitTracked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

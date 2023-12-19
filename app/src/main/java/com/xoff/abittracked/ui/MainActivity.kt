@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalLifecycleComposeApi::class)
 
 package com.xoff.abittracked.ui
 
@@ -15,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.xoff.abittracked.proto.TaskABT
 import com.xoff.abittracked.ui.theme.DatatStoreWithKotlinSupportTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,6 +30,11 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SampleScreen()
+                    val t=TaskABT.newBuilder().setName("toto").setDescription("yoyu").build()
+                    val t2=TaskABT.newBuilder().setName("toto 2").setDescription("yoyu 2").build()
+
+                   var tasks=listOf(t,t2)
+                   AllTasks(tasks)
                 }
             }
         }

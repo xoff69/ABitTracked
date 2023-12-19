@@ -3,7 +3,7 @@ syntax = "proto3";
 option java_package = "com.xoff.abittracked.proto";
 option java_multiple_files = true;
 
-message Task {
+message TaskABT {
   int32 id =1;
   string name=2;
   int32 expectedAttendees=3;
