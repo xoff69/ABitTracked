@@ -1,10 +1,6 @@
 package com.xoff.abittracked
 
 import android.app.Application
-import android.content.Context
-import androidx.room.Room
-import com.xoff.abittracked.dao.TaskDatabase
-import com.xoff.abittracked.dao.TaskItem
 import com.xoff.abittracked.data.proto.appStartupParamsDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
