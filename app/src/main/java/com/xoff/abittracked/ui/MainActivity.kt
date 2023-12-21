@@ -1,8 +1,6 @@
 
 package com.xoff.abittracked.ui
 
-import android.app.Application
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,9 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.Room
-import com.xoff.abittracked.dao.AppDatabase
-import com.xoff.abittracked.dao.User
 import com.xoff.abittracked.proto.TaskABT
 import com.xoff.abittracked.ui.theme.DatatStoreWithKotlinSupportTheme
 
@@ -46,13 +41,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun Builddatabase(context: Context)= Room.databaseBuilder(context.applicationContext,AppDatabase::class.java,"Taskbardb").build()
-private fun ListUsers(){
-
-
-    val userDao = db.userDao()
-    val users: List<User> = userDao.getAll()
-}
 @Composable
 private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
 
