@@ -4,13 +4,5 @@ option java_package = "com.xoff.abittracked.proto";
 option java_multiple_files = true;
 
 message TaskABT {
-  int32 id =1;
-  string name=2;
-  int32 expectedAttendees=3;
-  int32 periodicity=4;
-  string description=5;
-  int32 nbhit=6;
-  int64  tsStartDate=7;
-  bool autoRenew=8;
-  bool archived=9;
+  string content=1;
 }
