@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.xoff.abittracked.model.TaskItem
+import com.xoff.abittracked.model.Tasks
 import com.xoff.abittracked.proto.TaskABT
 import com.xoff.abittracked.ui.theme.DatatStoreWithKotlinSupportTheme
 
@@ -30,11 +32,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SampleScreen()
-                    val t=TaskABT.newBuilder().setName("toto").setDescription("yoyu").build()
-                    val t2=TaskABT.newBuilder().setName("toto 2").setDescription("yoyu 2").build()
 
-                   var tasks=listOf(t,t2)
-                   AllTasks(tasks)
+
                 }
             }
         }
@@ -49,7 +48,7 @@ private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
     SampleContent(
         appStartupCounter = viewState.appCounter,
         lastAppOpeningTimestamp = viewState.lastStartup,
-        ltasks=viewState.tasks,
+        mytasks=viewState.tasks,
         resetData = viewModel::resetData
     )
 }
@@ -58,7 +57,7 @@ private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
 private fun SampleContent(
     appStartupCounter: Int,
     lastAppOpeningTimestamp: String,
-    ltasks:List<String>,
+    mytasks: Tasks,
     resetData: () -> Unit
 ) {
 
@@ -95,7 +94,11 @@ private fun SampleContent(
             MediumSpacer()
             Column() {
                 Text(text = "tasks:", fontWeight = FontWeight.Bold)
-                Text(text = ltasks.size.toString())
+                Text(text = mytasks.tasks.size.toString())
+            }
+            Column {
+
+                AllTasks(mytasks)
             }
             Button(onClick = resetData) {
                 Text(text = "Reset data")
@@ -110,11 +113,19 @@ private fun MediumSpacer(modifier: Modifier = Modifier) = Spacer(modifier = modi
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+
+    val tasks = listOf(
+        TaskItem(1, "Technical Author"),
+        TaskItem(2, "Technical Author"),
+        TaskItem(3, "Technical Editor")
+    )
+    val allTasks=Tasks("toto",tasks)
+
     DatatStoreWithKotlinSupportTheme {
         SampleContent(
             appStartupCounter = 0,
             lastAppOpeningTimestamp = "",
-            listOf("a","ab"),
+            allTasks,
             resetData = {}
         )
     }

@@ -20,6 +20,13 @@ class TaskManagerTestKt {
         assertEquals(serialized, json)
     }
     @Test
+    fun unserialiseTasks() {
+        val json =
+            """{"title":"toto","tasks":[{"id":1,"name":"Technical Author"},{"id":2,"name":"Technical Author"},{"id":3,"name":"Technical Editor"}]}"""
+        val t=Gson().fromJson<Tasks>(json,Tasks::class.java)
+        assertEquals(t.title, "toto")
+    }
+    @Test
     fun serialiseTasks() {
         val tasks = listOf(
             TaskItem(1, "Technical Author"),

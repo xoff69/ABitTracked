@@ -4,8 +4,12 @@ import android.app.Application
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.xoff.abittracked.data.proto.appStartupParamsDataStore
+import com.xoff.abittracked.data.proto.taskDataStore
+import com.xoff.abittracked.model.Tasks
 import com.xoff.abittracked.proto.AppStartupParams
+import com.xoff.abittracked.proto.TaskABT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,9 +27,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     data class ViewState(
         val appCounter: Int = 0,
-        val lastStartup: String = ""
+        val lastStartup: String = "",
+        val tasks:Tasks=Tasks("hello", emptyList())
     ){
-        var tasks =  listOf("a","ab","cccccccc")
+
     }
 
     private val _viewState = MutableStateFlow(ViewState())
@@ -36,6 +41,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val appStartupParamsDataStore: DataStore<AppStartupParams>
         get() = getApplication<Application>().applicationContext.appStartupParamsDataStore
 
+    private val taskDataStore: DataStore<TaskABT>
+        get() = getApplication<Application>().applicationContext.taskDataStore
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -44,6 +52,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     currentState.copy(
                         appCounter = startupParams.startupCounter,
                         lastStartup = convertToReadableFormat(startupParams.startupUnixTimestamp)
+                    )
+                }
+            }
+            taskDataStore.data.collectLatest { p: TaskABT ->
+                _viewState.update { currentState ->
+                    currentState.copy(
+                        tasks = Gson().fromJson(p.content,Tasks::class.java)
                     )
                 }
             }

@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.xoff.abittracked.proto.TaskABT
 import androidx.compose.foundation.lazy.items
+import com.xoff.abittracked.model.Tasks
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-    fun AllTasks (platList: List<TaskABT>) {
+    fun AllTasks (mytasks: Tasks) {
         Scaffold(
 topBar = {
     TopAppBar(
@@ -46,8 +48,8 @@ topBar = {
                 )
             }
         }
-        items(platList){ task ->
-            TaskCard(task.name, task.description)
+        items(mytasks.tasks){ task ->
+            TaskCard(task.name, ""+task.id)
         }
     }
 }
