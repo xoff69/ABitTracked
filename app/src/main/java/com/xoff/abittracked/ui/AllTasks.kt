@@ -49,7 +49,7 @@ topBar = {
             }
         }
         items(mytasks.tasks){ task ->
-            TaskCard(task.name, ""+task.id)
+            TaskCard(task.name, task.id,task.description)
         }
     }
 }

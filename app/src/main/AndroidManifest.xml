@@ -17,7 +17,7 @@
         <activity
             android:name="com.xoff.abittracked.ui.MainActivity"
             android:exported="true"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:label="A bit tracked"
             android:theme="@style/Theme.ABitTracked">
             <intent-filter>

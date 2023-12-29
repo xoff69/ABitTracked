@@ -49,7 +49,8 @@ private fun SampleScreen(viewModel: MainViewModel = viewModel()) {
         appStartupCounter = viewState.appCounter,
         lastAppOpeningTimestamp = viewState.lastStartup,
         mytasks=viewState.tasks,
-        resetData = viewModel::resetData
+        resetData = viewModel::resetData,
+        populateData = viewModel::populateData,
     )
 }
 
@@ -58,7 +59,8 @@ private fun SampleContent(
     appStartupCounter: Int,
     lastAppOpeningTimestamp: String,
     mytasks: Tasks,
-    resetData: () -> Unit
+    resetData: () -> Unit,
+    populateData: () -> Unit
 ) {
 
     Card(
@@ -90,7 +92,9 @@ private fun SampleContent(
                     Text(text = lastAppOpeningTimestamp)
                 }
             }
-
+            Button(onClick = populateData) {
+                Text(text = "populate data")
+            }
             MediumSpacer()
             Column() {
                 Text(text = "tasks:", fontWeight = FontWeight.Bold)
@@ -114,10 +118,11 @@ private fun MediumSpacer(modifier: Modifier = Modifier) = Spacer(modifier = modi
 @Composable
 fun DefaultPreview() {
 
+
     val tasks = listOf(
-        TaskItem(1, "Technical Author"),
-        TaskItem(2, "Technical Author"),
-        TaskItem(3, "Technical Editor")
+        TaskItem(1, "Technical Author",5,5,"desc 1",1000,5,true,false),
+        TaskItem(2, "Technical Author",5,5,"desc 2",1000,5,true,false),
+        TaskItem(3, "Technical Editor",5,5,"desc 3",1000,5,true,false)
     )
     val allTasks=Tasks("toto",tasks)
 
@@ -126,7 +131,8 @@ fun DefaultPreview() {
             appStartupCounter = 0,
             lastAppOpeningTimestamp = "",
             allTasks,
-            resetData = {}
+            resetData = {},
+            populateData = {}
         )
     }
 }

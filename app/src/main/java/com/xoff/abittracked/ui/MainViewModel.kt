@@ -25,11 +25,15 @@ private const val DEFAULT_TIMESTAMP = 0
 private val logger = KotlinLogging.logger {}
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+
+
     data class ViewState(
         val appCounter: Int = 0,
         val lastStartup: String = "",
-        val tasks:Tasks=Tasks("hello", emptyList())
+        val tasks:Tasks=Gson().fromJson<Tasks>("""{"title":"toto","tasks":[{"id":1,"name":"Technical Author"},{"id":2,"name":"Technical Author"},{"id":3,"name":"Technical Editor"}]}"""
+            ,Tasks::class.java)
     ){
+
 
     }
 
@@ -58,6 +62,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             taskDataStore.data.collectLatest { p: TaskABT ->
                 _viewState.update { currentState ->
                     currentState.copy(
+
                         tasks = Gson().fromJson(p.content,Tasks::class.java)
                     )
                 }
@@ -70,7 +75,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             appStartupParamsDataStore.updateData { AppStartupParams.getDefaultInstance() }
         }
     }
+    fun populateData() {
+        viewModelScope.launch(Dispatchers.IO) {
 
+            taskDataStore.updateData { TaskABT.getDefaultInstance() }
+        }
+    }
     override fun onCleared() {
         appStartupParamsCollectorJob?.cancel()
         super.onCleared()

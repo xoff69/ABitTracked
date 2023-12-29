@@ -14,7 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 @Composable
-fun TaskCard(name: String, description: String) {
+/*
+val expectedAttendees: Int,
+                    var periodicity:Int,
+    var nbhit:Int, var tsStartDate:Int,var autoRenew:Boolean, var archived:Boolean
+ */
+fun TaskCard(name: String, id: Int, description:String) {
     Card(
         modifier = Modifier
             // The space between each card and the other
@@ -29,11 +34,15 @@ fun TaskCard(name: String, description: String) {
 
             Column(Modifier.padding(8.dp)) {
                 Text(
+                    text = ""+id
+                )
+                Text(
                     text = name
                 )
                 Text(
                     text = description
                 )
+
             }
         }
     }

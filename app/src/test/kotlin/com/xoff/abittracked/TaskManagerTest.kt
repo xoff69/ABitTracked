@@ -9,9 +9,9 @@ class TaskManagerTestKt {
     @Test
     fun serializeTasksListTest() {
         val tasks = listOf(
-            TaskItem(1, "Technical Author"),
-            TaskItem(2, "Technical Author"),
-            TaskItem(3, "Technical Editor")
+            TaskItem(1, "Technical Author",5,5,"desc 1",1000,5,true,false),
+            TaskItem(2, "Technical Author",5,5,"desc 2",1000,5,true,false),
+            TaskItem(3, "Technical Editor",5,5,"desc 3",1000,5,true,false)
         )
         val serialized = Gson().toJson(tasks)
 
@@ -29,9 +29,9 @@ class TaskManagerTestKt {
     @Test
     fun serialiseTasks() {
         val tasks = listOf(
-            TaskItem(1, "Technical Author"),
-            TaskItem(2, "Technical Author"),
-            TaskItem(3, "Technical Editor")
+            TaskItem(1, "Technical Author",5,5,"desc 1",1000,5,true,false),
+            TaskItem(2, "Technical Author",5,5,"desc 2",1000,5,true,false),
+            TaskItem(3, "Technical Editor",5,5,"desc 3",1000,5,true,false)
         )
         val allTasks=Tasks("toto",tasks)
 
